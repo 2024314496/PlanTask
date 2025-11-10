@@ -1,0 +1,114 @@
+* {
+    /* reset css*/
+    padding: 0;
+    margin: 0;
+    vertical-align: baseline;
+    list-style: none;
+    text-decoration: none;
+    border: 0;
+    background: none;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Inter";
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #FFFFFF;
+}
+
+
+:root {
+    --primary-color: #006414;
+    --secondary-color: #003400;
+    --background: #1e1e1e;
+    --background2: #262626;
+    --focus: #666;
+    --focus2: #707070;
+    --black: #000000;
+    --white: #FFFFFF;
+}
+
+.title {
+    font-size: 2.5rem;
+    margin: 20px 0px;
+    margin: 0px 0px 20px;
+    /* text-align: center; */
+}
+
+.black {
+    color: var(--black);
+}
+
+.white {
+    color: var(--white);
+}
+
+.subtitle {
+    font-size: 1.7rem;
+    margin: 0px 0px 10px;
+    /* text-align: center; */
+}
+
+.subsubtitle {
+    font-size: 1.2rem;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+}
+
+.row {
+    display: flex;
+    flex-flow: row;
+}
+
+.img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.flex2 {
+    flex: 2;
+}
+
+.fit-content {
+    /* width: fit-content; */
+    height: fit-content;
+}
+
+button,
+a {
+    cursor: pointer;
+}
+
+.bx {
+    margin-right: 5px;
+}
+
+input,
+select {
+    border: 1px solid var(--focus);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+input:focus {
+    outline: 1px solid var(--focus2);
+
+}
+
+fieldset {
+    height: 100%;
+}

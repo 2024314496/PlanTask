@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanTask</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tasks.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="imgs/planta.png" type="image/x-icon">
+
+    <script src="js/tasks.js" defer></script>
+    <script src="js/localStorage.js" defer></script>
+    <script src="js/delete.js"></script>
+    <script src="js/show.js" defer></script>
+
+</head>
+
+<body>
+    <aside>
+        <div class="aside-content">
+            <div class="aside-box">
+                <div class="aside-div">
+                    <h2 class="subtitle" onclick="localStorage.clear(), window.location.reload()">🌱PlanTask</h2>
+                </div>
+
+                <div class="aside-div">
+                    <ul class="aside-nav">
+                        <li><button onclick="popup('#addTask', 'showModal')"><i
+                                    class='bx bxs-plus-circle'></i><strong>Adicionar Tarefa</strong></button></li>
+                        <li><button onclick="popup('#addSection', 'showModal')"><i
+                                    class='bx bxs-plus-circle'></i><strong>Adicionar Seção</strong></button></li>
+                        <!-- <li><button onclick="changeMain('#entrance')"><i class='bx bxs-inbox' ></i>Entrada</button></li> -->
+                        <!-- <li><button onclick="changeMain('#today')"><i class='bx bx-calendar-exclamation' ></i>Hoje</button></li> -->
+                        <!-- <li><button onclick="changeMain('#next')"><i class='bx bx-calendar' ></i>Em Breve</button></li> -->
+                        <!-- <li><button onclick="changeMain('#done')"><i class='bx bxs-chevron-down-circle' ></i>Concluído</button></li> -->
+                    </ul>
+                </div>
+                <div class="aside-div">
+                    <button onclick="changeMain('#projects')"><strong>Meus Projetos</strong></button>
+                    <ul class="aside-nav" id="aside-projects"></ul>
+                </div>
+            </div>
+            <div class="aside-box">
+                <div class="aside-div">
+                    <button><strong>Configurações</strong></button>
+                    <ul class="aside-nav">
+                        <li><button onclick="saveToLocalStorage()"><i class='bx bx-save'></i>Gravar Dados</button></li>
+                        <li><button onclick="recoverData()"><i class='bx bx-download'></i>Recuperar Dados</button></li>
+                        <li><button onclick="cleanData()"><i class='bx bx-trash'></i>Limpar Dados</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <main>
+        <div class="container" id="entrance">
+            <h2 class="title">Entrada</h2>
+        </div>
+        <div class="container" id="today">
+            <h2 class="title">Hoje</h2>
+        </div>
+        <div class="container" id="next">
+            <h2 class="title">Em Breve</h2>
+        </div>
+        <div class="container" id="tags">
+            <h2 class="title">Etiquetas</h2>
+        </div>
+        <div class="container" id="done">
+            <h2 class="title">Concluído</h2>
+        </div>
+        <div class="container page-active" id="projects">
+            <h2 class="title">Projetos <button class='bx bxs-plus-circle'
+                    onclick="popup('#addProject', 'showModal')"></button></h2>
+        </div>
+    </main>
+
+    <dialog id="addProject" class="popup">
+        <form class="container" onsubmit="addProject(event)">
+            <fieldset>
+                <legend>
+                    <h2 class="subtitle">Adicionar Projeto</h2>
+                </legend>
+
+                <label for="addProjectName">Nome:</label><br>
+                <input type="text" name="addProjectName" id="addProjectName" required><br>
+                
+                <label for="addProjectColor">Cor:</label><br>
+                <input type="color" name="addProjectColor" id="addProjectColor"><br>
+                
+                <button type="button" onclick="popup('#addProject', 'close')">Cancelar</button>
+                <button type="submit">Adicionar</button>
+            </fieldset>
+        </form>
+    </dialog>
+    
+    <dialog id="addSection" class="popup">
+        <form class="container" onsubmit="addSection(event)">
+            <fieldset>
+                <legend>
+                    <h2 class="subtitle">Adicionar Seção</h2>
+                </legend>
+                
+                <label for="addSectionName">Nome:</label><br>
+                <input type="text" name="addSectionName" id="addSectionName" required><br>
+                
+                <label for="addSectionProject">Projeto:</label><br>
+                <select name="addSectionProject" id="addSectionProject" required>
+                    <option value="" selected disabled>Selecione...</option>
+                </select>
+                
+                <button type="button" onclick="popup('#addSection', 'close')">Cancelar</button>
+                <button type="submit">Adicionar</button>
+            </fieldset>
+        </form>
+    </dialog>
+    
+    <dialog id="addTask" class="popup">
+        <form class="container" onsubmit="addTask(event)">
+            <fieldset>
+                <legend>
+                    <h2 class="subtitle">Adicionar Tarefa</h2>
+                </legend>
+                
+                <label for="addTaskName">Nome:</label>
+                <input type="text" name="addTaskName" id="addTaskName" required>
+                
+                <label for="addTaskDesc">Descrição</label>
+                <input type="text" name="addTaskDesc" id="addTaskDesc" required>
+                
+                <label for="addTaskDate">Data:</label>
+                <input type="date" name="addTaskDate" id="addTaskDate" required>
+                
+                <label for="addTaskResp">Responsável:</label>
+                <input type="text" name="addTaskResp" id="addTaskResp" required>
+                
+                <label for="addTaskPrio">Nível de Prioridade:</label>
+                <select name="addTaskPrio" id="addTaskPrio" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="1">Prioridade 1</option>
+                    <option value="2">Prioridade 2</option>
+                    <option value="3">Prioridade 3</option>
+                    <option value="4">Prioridade 4</option>
+                </select>
+                
+                <label for="addTaskLocal">Local:</label>
+                <input type="text" name="addTaskLocal" id="addTaskLocal" required>
+                
+                <label for="addTaskProject">Projeto:</label>
+                <select name="addTaskProject" id="addTaskProject" onchange="putProjectsSectionsOptions('#addTaskProject', '#addTaskSection')" required>
+                <option value="" selected disabled>Selecione...</option>
+            </select>
+            
+            <label for="addTaskSection">Seção:</label>
+            <select name="addTaskSection" id="addTaskSection" required>
+                <option value="" selected disabled>Selecione...</option>
+            </select>
+            
+            <button type="button" onclick="popup('#addTask', 'close')">Cancelar</button>
+            <button type="submit">Adicionar</button>
+            </fieldset>
+        </form>
+    </dialog>
+</body>
+
+</html>
